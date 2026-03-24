@@ -1,19 +1,16 @@
 const config = require("./config/env");
-const connectDB = require("./config/db");
 const User = require("./models/user.model");
 const { hashPassword } = require("./utils/hashPassword");
 
-const createAdmin = async () => {
+const seedAdmin = async () => {
   try {
-    await connectDB();
-
     const adminEmail = config.ADMIN_EMAIL;
     const adminPassword = config.ADMIN_PASSWORD;
     const adminName = config.ADMIN_NAME;
 
     if (!adminEmail || !adminPassword || !adminName) {
-      console.error("ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_NAME .env mein set karo");
-      process.exit(1);
+      console.log("Admin env not set, skipping seed...");
+      return;
     }
 
     const existing = await User.findOne({ email: adminEmail });
@@ -27,17 +24,13 @@ const createAdmin = async () => {
         isVerified: true,
       });
 
-      console.log("Admin created:", admin.email);
+      console.log("✅ Admin created:", admin.email);
     } else {
-      console.log("Admin already exists:", adminEmail);
+      console.log("ℹ️ Admin already exists");
     }
-
-    process.exit();
   } catch (error) {
-    console.error("Error:", error.message);
-    process.exit(1);
+    console.error("Seed error:", error.message);
   }
 };
 
-createAdmin();
-
+module.exports = seedAdmin;
