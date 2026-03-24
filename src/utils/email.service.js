@@ -4,12 +4,21 @@ const config = require("../config/env");
 
 const transporter = nodemailer.createTransport({
   host: config.EMAIL_HOST,
-  port: config.EMAIL_PORT,
-  secure: config.EMAIL_PORT == 465, 
+port: Number(config.EMAIL_PORT),
+secure: Number(config.EMAIL_PORT) === 465,
   auth: {
     user: config.EMAIL_USER,
     pass: config.EMAIL_PASS,
   },
+});
+
+
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log("SMTP ERROR:", error);
+  } else {
+    console.log("SMTP READY");
+  }
 });
 
 
