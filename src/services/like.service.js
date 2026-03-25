@@ -3,7 +3,7 @@ const Blog = require("../models/blog.model");
 const AppError = require("../errors/AppError");
 
 exports.toggleLike = async (blogId, userId) => {
-o
+
   const blog = await Blog.findById(blogId);
   if (!blog) throw new AppError("Blog not found", 404);
 
