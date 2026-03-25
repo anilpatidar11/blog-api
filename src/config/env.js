@@ -7,11 +7,16 @@ const config = {
   JWT_SECRET: process.env.JWT_SECRET,
 
 
-  EMAIL_HOST: process.env.EMAIL_HOST,
-  EMAIL_PORT: process.env.EMAIL_PORT || 587,
-  EMAIL_USER: process.env.EMAIL_USER,
-  EMAIL_PASS: process.env.EMAIL_PASS,
-  EMAIL_FROM: process.env.EMAIL_FROM,
+  // EMAIL_HOST: process.env.EMAIL_HOST,
+  // EMAIL_PORT: process.env.EMAIL_PORT || 587,
+  // EMAIL_USER: process.env.EMAIL_USER,
+  // EMAIL_PASS: process.env.EMAIL_PASS,
+  // EMAIL_FROM: process.env.EMAIL_FROM,
+
+
+  RESEND_API_KEY: process.env.RESEND_API_KEY,
+  EMAIL_FROM: process.env.EMAIL_FROM, 
+
 
   // Frontend URL (reset/verify links yahan jaayenge)
   CLIENT_URL: process.env.CLIENT_URL || "http://localhost:3000",
