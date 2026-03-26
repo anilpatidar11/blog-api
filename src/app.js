@@ -8,10 +8,27 @@ const commentRoutes = require("./routes/comment.routes");
 const errorHandler = require("./middlewares/error.middleware");
 
 
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   credentials: true
+// }));
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://blog-web-4wi0.onrender.com"
+];
+
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
+
 
 app.use(express.json());
 
