@@ -112,8 +112,12 @@ exports.uploadProfilePic = async (req, res, next) => {
     if (!req.file) {
       throw new AppError("No file uploaded", 400);
     }
-
-
+    // 👉 Pehle user data lao (old image ke liye)
+    const existingUser = await userService.getUserById(req.user.id);
+   // 👉 Agar old image hai to delete karo
+    if (existingUser.profilePicPublicId) {
+      await cloudinary.uploader.destroy(existingUser.profilePicPublicId);
+    }
     const uploadToCloudinary = () =>
       new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
@@ -131,6 +135,7 @@ exports.uploadProfilePic = async (req, res, next) => {
 
     const user = await userService.updateUser(req.user.id, {
       profilePic: result.secure_url,
+      profilePicPublicId: result.public_id,
     });
 
     res.status(200).json({

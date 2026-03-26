@@ -50,6 +50,9 @@ profilePic: {
   type: String, 
 },
   
+profilePicPublicId: { 
+  type: String,
+},
   
     isVerified: {
       type: Boolean,
